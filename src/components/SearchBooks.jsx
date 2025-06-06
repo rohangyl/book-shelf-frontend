@@ -8,6 +8,7 @@ const LiveSearchTable = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const debouncedSearchRef = useRef();
 
@@ -21,7 +22,7 @@ const LiveSearchTable = () => {
 
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5000/api/books/search?q=${searchTerm}`);
+        const res = await axios.get(`${BASE_URL}api/books/search?q=${searchTerm}`);
         setResults(res.data);
         setNoResults(res.data.length === 0);
       } catch (err) {
