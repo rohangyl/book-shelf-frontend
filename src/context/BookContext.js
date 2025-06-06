@@ -10,7 +10,7 @@ export const BookProvider = ({ children }) => {
   const fetchBooks = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/books');
+      const res = await fetch('https://book-shelf-backend-ceqs.onrender.com/api/books');
       const data = await res.json();
       setBooks(data);
     } catch (err) {
