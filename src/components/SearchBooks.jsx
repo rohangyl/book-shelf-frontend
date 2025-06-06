@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback,useRef } from 'react';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import SVGComponent from '../svgfolder/Search';
@@ -9,8 +9,10 @@ const LiveSearchTable = () => {
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
 
-  const debouncedSearch = useCallback(
-    debounce(async (searchTerm) => {
+  const debouncedSearchRef = useRef();
+
+  useEffect(() => {
+    debouncedSearchRef.current = debounce(async (searchTerm) => {
       if (!searchTerm) {
         setResults([]);
         setNoResults(false);
@@ -28,14 +30,16 @@ const LiveSearchTable = () => {
         setNoResults(true);
       }
       setLoading(false);
-    }, 300),
-    []
-  );
+    }, 300);
+
+    return () => {
+      debouncedSearchRef.current.cancel();
+    };
+  }, []);
 
   useEffect(() => {
-    debouncedSearch(query);
-  }, [query, debouncedSearch]);
-
+    debouncedSearchRef.current(query);
+  }, [query]);
   return (
     <div style={{ maxWidth: '900px', margin: '2rem auto' }}>
       <h2><SVGComponent></SVGComponent> Search Book</h2>
