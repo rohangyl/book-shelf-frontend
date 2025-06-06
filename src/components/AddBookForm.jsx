@@ -3,7 +3,6 @@ import { BookContext } from '../context/BookContext';
 
 const AddBookForm = () => {
   const { fetchBooks } = useContext(BookContext);
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const [formData, setFormData] = useState({
     title: '',
