@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { BookContext } from '../context/BookContext';
+import { useNavigate } from 'react-router-dom';
 
 const BookList = () => {
   const { books, loading, error } = useContext(BookContext);
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 5;
+  const navigate = useNavigate();
+
 
   if (loading) return <p>Loading books...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -39,12 +42,12 @@ const BookList = () => {
           <tr>
             <th style={thStyle}>Cover</th>
             <th style={thStyle}>Title</th>
-            <th style={thStyle}>Author</th>
+            {/* <th style={thStyle}>Author</th>
             <th style={thStyle}>Genre</th>
             <th style={thStyle}>Year</th>
             <th style={thStyle}>Read Status</th>
             <th style={thStyle}>Language</th>
-            <th style={thStyle}>Theme</th>
+            <th style={thStyle}>Theme</th> */}
           </tr>
         </thead>
         <tbody>
@@ -59,13 +62,15 @@ const BookList = () => {
                   />
                 ) : 'N/A'}
               </td>
-              <td style={tdStyle}>{book.title}</td>
-              <td style={tdStyle}>{book.author}</td>
+              <td style={tdStyle} onClick={() => navigate(`/book/${book._id}`)} >
+                {book.title}
+              </td>
+              {/* <td style={tdStyle}>{book.author}</td>
               <td style={tdStyle}>{book.genre || 'N/A'}</td>
               <td style={tdStyle}>{book.publicationYear || 'N/A'}</td>
               <td style={tdStyle}>{book.readStatus}</td>
               <td style={tdStyle}>{book.language || 'N/A'}</td>
-              <td style={tdStyle}>{book.theme || 'N/A'}</td>
+              <td style={tdStyle}>{book.theme || 'N/A'}</td> */}
             </tr>
           ))}
         </tbody>

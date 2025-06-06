@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AddBookForm from './components/AddBookForm';
 import BookList from './components/BookList';
 import SearchBooks from './components/SearchBooks';
+import BookDetails from './components/BookDetails';
+
 import Navbar from './components/Navbar';
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<BookList />} />
+          <Route path="/book/:id" element={<BookDetails />} />
           <Route path="/add" element={<AddBookForm />} />
           <Route path="/search" element={<SearchBooks />} />
           {/* <Route path="/chat" element={<Chatbot />} /> */}
