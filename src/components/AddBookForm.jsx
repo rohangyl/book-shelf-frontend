@@ -31,7 +31,7 @@ const AddBookForm = () => {
     setSuccess(null);
 
     try {
-        const res = await fetch(`${BASE_URL}/api/books`, {
+      const res = await fetch('https://book-shelf-backend-ceqs.onrender.com/api/books', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
