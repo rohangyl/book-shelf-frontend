@@ -35,3 +35,18 @@ it is open cors or you can say wire of backend which can we connect with fronten
 
 ## Locally
 it will run https://localhost:3000
+----
+## Deployment
+Push to GitHub
+Connect Netlify to GitHub
+Deploy
+
+--
+
+## Features
+Live search with debounce
+Book detail page
+Add new book with validations
+Paginated list view
+
+
