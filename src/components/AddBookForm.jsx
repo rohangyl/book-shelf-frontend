@@ -22,6 +22,32 @@ const AddBookForm = () => {
   const handleChange = e => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const formStyle = {
+    maxWidth: '500px',
+    margin: '2rem auto',
+    padding: '2rem',
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.05)',
+    backgroundColor: '#fefefe',
+  };
+  
+  const fieldContainer = {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '1rem',
+  };
+  
+  const buttonStyle = {
+    padding: '0.7rem 1.5rem',
+    fontSize: '1rem',
+    border: 'none',
+    borderRadius: '5px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    cursor: 'pointer',
+  };
+  
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -52,7 +78,7 @@ const AddBookForm = () => {
           language: '',
           theme: ''
         });
-        fetchBooks(); // refresh the book list
+        fetchBooks(); 
       }
     } catch (err) {
       setError('Network error');
@@ -62,118 +88,65 @@ const AddBookForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
-      <h2 style={{ textAlign: 'center' }}>Add New Book</h2>
-      <table style={{ margin: '0 auto', borderSpacing: '10px' }}>
-        <tbody>
-          <tr>
-            <td><label htmlFor="title">Title:</label></td>
-            <td>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="author">Author:</label></td>
-            <td>
-              <input
-                type="text"
-                name="author"
-                value={formData.author}
-                onChange={handleChange}
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="genre">Genre:</label></td>
-            <td>
-              <input
-                type="text"
-                name="genre"
-                value={formData.genre}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="publicationYear">Publication Year:</label></td>
-            <td>
-              <input
-                type="number"
-                name="publicationYear"
-                value={formData.publicationYear}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="coverImage">Cover Image URL:</label></td>
-            <td>
-              <input
-                type="text"
-                name="coverImage"
-                value={formData.coverImage}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="readStatus">Read Status:</label></td>
-            <td>
-              <select name="readStatus" value={formData.readStatus} onChange={handleChange}>
-                <option value="unread">Unread</option>
-                <option value="read">Read</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="language">Language:</label></td>
-            <td>
-              <input
-                type="text"
-                name="language"
-                value={formData.language}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label htmlFor="theme">Theme:</label></td>
-            <td>
-              <input
-                type="text"
-                name="theme"
-                value={formData.theme}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="2" style={{ textAlign: 'center' }}>
-              <button type="submit" disabled={loading}>
-                {loading ? 'Adding...' : 'Add Book'}
-              </button>
-            </td>
-          </tr>
-          {error && (
-            <tr>
-              <td colSpan="2" style={{ color: 'red', textAlign: 'center' }}>{error}</td>
-            </tr>
-          )}
-          {success && (
-            <tr>
-              <td colSpan="2" style={{ color: 'green', textAlign: 'center' }}>{success}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </form>
+    <form onSubmit={handleSubmit} style={formStyle}>
+  <h2 style={{ textAlign: 'center' }}>Add New Book</h2>
+
+  <div style={fieldContainer}>
+    <label htmlFor="title">Title:</label>
+    <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="author">Author:</label>
+    <input type="text" name="author" value={formData.author} onChange={handleChange} required />
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="genre">Genre:</label>
+    <input type="text" name="genre" value={formData.genre} onChange={handleChange} />
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="publicationYear">Publication Year:</label>
+    <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange}  min="0"
+  style={{
+    borderColor: formData.publicationYear < 0 ? 'red' : undefined,
+  }} />
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="coverImage">Cover Image URL:</label>
+    <input type="text" name="coverImage" value={formData.coverImage} onChange={handleChange} />
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="readStatus">Read Status:</label>
+    <select name="readStatus" value={formData.readStatus} onChange={handleChange}>
+      <option value="unread">Unread</option>
+      <option value="read">Read</option>
+    </select>
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="language">Language:</label>
+    <input type="text" name="language" value={formData.language} onChange={handleChange} />
+  </div>
+
+  <div style={fieldContainer}>
+    <label htmlFor="theme">Theme:</label>
+    <input type="text" name="theme" value={formData.theme} onChange={handleChange} />
+  </div>
+
+  {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+  {success && <p style={{ color: 'green', textAlign: 'center' }}>{success}</p>}
+
+  <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+    <button type="submit" disabled={loading} style={buttonStyle}>
+      {loading ? 'Adding...' : 'Add Book'}
+    </button>
+  </div>
+</form>
+
   );
 }
 
